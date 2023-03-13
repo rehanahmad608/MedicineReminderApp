@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:stellar/app.dart';
 import 'package:stellar/src/infrastructure/convert_time.dart';
 import 'package:stellar/src/presentation/global_bloc.dart';
 import 'package:stellar/src/presentation/models/errors.dart';
@@ -52,10 +53,23 @@ class _NewEntryState extends State<NewEntry> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(
-          color: Color(0xFF3EB16F),
+        leading: InkWell(
+          onTap: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return HomePage();
+                },
+              ),
+            );
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: themeColor,
+          ),
         ),
+        backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
           "Add New Mediminder",
@@ -91,13 +105,13 @@ class _NewEntryState extends State<NewEntry> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
-                        color: Color.fromARGB(255, 13, 8, 68),
+                        color: themeColor,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
-                        color: Color.fromARGB(255, 13, 8, 68),
+                        color: themeColor,
                         width: 2.0,
                       ),
                     ),
@@ -119,13 +133,13 @@ class _NewEntryState extends State<NewEntry> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
-                        color: Color.fromARGB(255, 13, 8, 68),
+                        color: themeColor,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
-                        color: Color.fromARGB(255, 13, 8, 68),
+                        color: themeColor,
                         width: 2.0,
                       ),
                     ),
@@ -361,7 +375,7 @@ class _NewEntryState extends State<NewEntry> {
       'repeatDailyAtTime channel name',
       'repeatDailyAtTime description',
       importance: Importance.max,
-      ledColor: Color.fromARGB(255, 91, 62, 187),
+      ledColor: themeColor,
       ledOffMs: 1000,
       ledOnMs: 1000,
       enableLights: true,
@@ -423,14 +437,14 @@ class _IntervalSelectionState extends State<IntervalSelection> {
               ),
             ),
             DropdownButton<int>(
-              iconEnabledColor: Color.fromARGB(255, 91, 62, 187),
+              iconEnabledColor: themeColor,
               hint: _selected == 0
                   ? Text(
                       "Select an Interval",
                       style: TextStyle(
-                          fontSize: 10,
+                          fontSize: 14,
                           color: Colors.black,
-                          fontWeight: FontWeight.w400),
+                          fontWeight: FontWeight.w600),
                     )
                   : null,
               elevation: 4,
@@ -482,10 +496,12 @@ class _SelectTimeState extends State<SelectTime> {
   Future<TimeOfDay?> _selectTime(BuildContext context) async {
     final NewEntryBloc _newEntryBloc =
         Provider.of<NewEntryBloc>(context, listen: false);
+
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: _time,
     );
+
     if (picked != null && picked != _time) {
       setState(() {
         _time = picked;
@@ -494,6 +510,7 @@ class _SelectTimeState extends State<SelectTime> {
             "${convertTime(_time.minute.toString())}");
       });
     }
+
     return picked;
   }
 
@@ -557,9 +574,7 @@ class MedicineTypeColumn extends StatelessWidget {
             width: 85,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: isSelected
-                  ? Color.fromARGB(255, 161, 150, 203)
-                  : Colors.white,
+              color: isSelected ? themeColor : Colors.white,
             ),
             child: Center(
               child: Padding(
@@ -567,9 +582,7 @@ class MedicineTypeColumn extends StatelessWidget {
                 child: ImageIcon(
                   AssetImage(imgIcon),
                   size: 75,
-                  color: isSelected
-                      ? Colors.white
-                      : Color.fromARGB(255, 182, 170, 218),
+                  color: isSelected ? Colors.white : themeColor,
                 ),
                 // Icon(
                 //   IconData(iconValue, fontFamily: "Ic"),
@@ -587,9 +600,7 @@ class MedicineTypeColumn extends StatelessWidget {
               width: 80,
               height: 30,
               decoration: BoxDecoration(
-                color: isSelected
-                    ? Color.fromARGB(255, 91, 62, 187)
-                    : Colors.transparent,
+                color: isSelected ? themeColor : Colors.transparent,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
@@ -597,9 +608,7 @@ class MedicineTypeColumn extends StatelessWidget {
                   name,
                   style: TextStyle(
                     fontSize: 16,
-                    color: isSelected
-                        ? Colors.white
-                        : Color.fromARGB(255, 91, 62, 187),
+                    color: isSelected ? Colors.white : themeColor,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -634,8 +643,7 @@ class PanelTitle extends StatelessWidget {
           ),
           TextSpan(
             text: isRequired ? " *" : "",
-            style: TextStyle(
-                fontSize: 14, color: Color.fromARGB(255, 91, 62, 187)),
+            style: TextStyle(fontSize: 14, color: themeColor),
           ),
         ]),
       ),

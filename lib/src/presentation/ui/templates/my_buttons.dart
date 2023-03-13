@@ -228,7 +228,7 @@ class Buttons {
           height: ScreenConfig.screenSizeHeight * 0.06,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.0),
-            color: Colors.black,
+            color: Color(0xff1560BD),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -263,7 +263,7 @@ class Buttons {
           height: ScreenConfig.screenSizeHeight * 0.05,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.0),
-            color: Colors.black,
+            color: Color(0xff1560BD),
           ),
           child: Center(
               child: Text(
@@ -325,10 +325,10 @@ Widget nextButton() {
           vertical: ScreenConfig.screenSizeHeight * 0.01,
           horizontal: ScreenConfig.screenSizeWidth * 0.01),
       child: buttontext(
-        Colors.black,
+        Color(0xff1560BD),
         "Create Order",
         Colors.white,
-        Colors.black,
+        Color(0xff1560BD),
       ));
 }
 
@@ -360,10 +360,10 @@ Widget nextButtonWithFunction(void Function() func) {
             vertical: ScreenConfig.screenSizeHeight * 0.01,
             horizontal: ScreenConfig.screenSizeWidth * 0.01),
         child: buttontext(
-          Colors.black,
+          Color(0xff1560BD),
           "Next",
           Colors.white,
-          Colors.black,
+          Color(0xff1560BD),
         )),
   );
 }

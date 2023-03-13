@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:stellar/app.dart';
 import 'package:stellar/src/presentation/models/medicine.dart';
 import 'package:stellar/src/presentation/screens/homepage/homepage.dart';
 
@@ -23,10 +24,22 @@ class _MedicineDetailsState extends State<MedicineDetails> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: InkWell(
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return HomePage();
+                  },
+                ),
+              );
+            },
+            child: Icon(
+              Icons.arrow_back,
+              color: themeColor,
+            )),
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(
-          color: Color(0xFF3EB16F),
-        ),
         centerTitle: true,
         title: Text(
           "Mediminder Details",
@@ -206,7 +219,7 @@ class MainSection extends StatelessWidget {
         child: ImageIcon(
           const AssetImage('assets/icons/bottle.png'),
           size: size,
-          color: Color.fromARGB(255, 91, 62, 187),
+          color: themeColor,
         ),
       );
     } else if (medicine.medicineType == "Pill") {
@@ -215,7 +228,7 @@ class MainSection extends StatelessWidget {
         child: ImageIcon(
           const AssetImage('assets/icons/pills.png'),
           size: size,
-          color: Color.fromARGB(255, 91, 62, 187),
+          color: themeColor,
         ),
       );
     } else if (medicine.medicineType == "Syringe") {
@@ -224,7 +237,7 @@ class MainSection extends StatelessWidget {
         child: ImageIcon(
           const AssetImage('assets/icons/vaccine.png'),
           size: size,
-          color: Color.fromARGB(255, 91, 62, 187),
+          color: themeColor,
         ),
       );
     } else if (medicine.medicineType == "Tablet") {
@@ -233,7 +246,7 @@ class MainSection extends StatelessWidget {
         child: ImageIcon(
           const AssetImage('assets/icons/tablet.png'),
           size: size,
-          color: Color.fromARGB(255, 91, 62, 187),
+          color: themeColor,
         ),
       );
     }
@@ -242,7 +255,7 @@ class MainSection extends StatelessWidget {
       child: ImageIcon(
         const AssetImage('assets/icons/bottle.png'),
         size: size,
-        color: Color.fromARGB(255, 91, 62, 187),
+        color: themeColor,
       ),
     );
   }
@@ -308,9 +321,7 @@ class MainInfoTab extends StatelessWidget {
           Text(
             fieldInfo,
             style: TextStyle(
-                fontSize: 24,
-                color: Color.fromARGB(255, 91, 62, 187),
-                fontWeight: FontWeight.bold),
+                fontSize: 24, color: themeColor, fontWeight: FontWeight.bold),
           ),
         ],
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stellar/app.dart';
 import 'package:stellar/src/presentation/global_bloc.dart';
 import 'package:stellar/src/presentation/models/medicine.dart';
 import 'package:stellar/src/presentation/screens/medicine_details/medicine_details.dart';
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Color.fromARGB(255, 91, 62, 187),
+        backgroundColor: themeColor,
         elevation: 0.0,
       ),
       body: Container(
@@ -48,9 +49,10 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         elevation: 4,
-        backgroundColor: Color.fromARGB(255, 91, 62, 187),
+        backgroundColor: themeColor,
         child: Icon(
           Icons.add,
+          color: Colors.white,
         ),
         onPressed: () {
           Navigator.push(
@@ -82,7 +84,7 @@ class TopContainer extends StatelessWidget {
             offset: Offset(0, 3.5),
           )
         ],
-        color: Color.fromARGB(255, 91, 62, 187),
+        color: themeColor,
       ),
       width: double.infinity,
       child: Column(
@@ -194,7 +196,7 @@ class MedicineCard extends StatelessWidget {
         child: ImageIcon(
           const AssetImage('assets/icons/bottle.png'),
           size: size,
-          color: Color.fromARGB(255, 91, 62, 187),
+          color: themeColor,
         ),
       );
     } else if (medicine.medicineType == "Pill") {
@@ -203,7 +205,7 @@ class MedicineCard extends StatelessWidget {
         child: ImageIcon(
           const AssetImage('assets/icons/pills.png'),
           size: size,
-          color: Color.fromARGB(255, 91, 62, 187),
+          color: themeColor,
         ),
       );
     } else if (medicine.medicineType == "Syringe") {
@@ -212,7 +214,7 @@ class MedicineCard extends StatelessWidget {
         child: ImageIcon(
           const AssetImage('assets/icons/vaccine.png'),
           size: size,
-          color: Color.fromARGB(255, 91, 62, 187),
+          color: themeColor,
         ),
       );
     } else if (medicine.medicineType == "Tablet") {
@@ -221,7 +223,7 @@ class MedicineCard extends StatelessWidget {
         child: ImageIcon(
           const AssetImage('assets/icons/tablet.png'),
           size: size,
-          color: Color.fromARGB(255, 91, 62, 187),
+          color: themeColor,
         ),
       );
     }
@@ -229,7 +231,7 @@ class MedicineCard extends StatelessWidget {
       tag: medicine.medicineName + medicine.medicineType,
       child: Icon(
         Icons.error,
-        color: Color.fromARGB(255, 91, 62, 187),
+        color: themeColor,
         size: size,
       ),
     );
@@ -270,7 +272,7 @@ class MedicineCard extends StatelessWidget {
                       medicine.medicineName,
                       style: TextStyle(
                           fontSize: 22,
-                          color: Color.fromARGB(255, 91, 62, 187),
+                          color: themeColor,
                           fontWeight: FontWeight.w500),
                     ),
                   ),

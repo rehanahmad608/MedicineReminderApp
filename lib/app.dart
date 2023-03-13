@@ -6,7 +6,7 @@ import 'src/presentation/screens/intro/splash_screen.dart';
 import 'src/presentation/ui/config/routes.dart';
 import 'src/presentation/ui/config/theme.dart';
 
-const themeColor = Color(0xff0057BB);
+const themeColor = Color(0xff1560BD);
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
