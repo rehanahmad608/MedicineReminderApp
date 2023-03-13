@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 import 'package:stellar/src/infrastructure/screen_size_config/screen_size_config.dart';
 import 'package:stellar/src/presentation/screens/intro/otp_verification.dart';
@@ -6,6 +7,8 @@ import 'package:stellar/src/presentation/ui/templates/intro_widgets/default_snac
 import 'package:stellar/src/presentation/ui/templates/intro_widgets/heading.dart';
 import 'package:stellar/src/presentation/ui/templates/my_buttons.dart';
 import 'package:stellar/src/presentation/ui/templates/phone_number_textfield.dart';
+import 'package:stellar/src/presentation/ui/templates/textfield.dart';
+import 'package:stellar/src/presentation/ui/templates/validation.dart';
 
 class NumberRegistrationScreen extends StatefulWidget {
   const NumberRegistrationScreen({Key? key}) : super(key: key);
@@ -26,6 +29,8 @@ class _NumberRegistrationScreenState extends State<NumberRegistrationScreen> {
   // bool error = true;
   final _formkey = GlobalKey<FormState>();
   TextEditingController phoneNum = TextEditingController();
+  bool emailError = false;
+  final TextEditingController emailController = TextEditingController();
   @override
   void initState() {
     phoneNumberErrorShownWithTextField = false;
@@ -254,6 +259,41 @@ class _NumberRegistrationScreenState extends State<NumberRegistrationScreen> {
                   height: ScreenConfig.screenSizeHeight * 0.03,
                 ),
                 const PhoneNumberTextFieldToShow(),
+                SizedBox(
+                  height: ScreenConfig.screenSizeHeight * 0.03,
+                ),
+                Text('Enter Email',
+                    style: ScreenConfig.theme.textTheme.headline6),
+                SizedBox(
+                  height: ScreenConfig.screenSizeHeight * 0.03,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: ScreenConfig.screenSizeWidth * 0.91,
+                      child: MyTextFields.generalTextField(
+                          textInputType: TextInputType.emailAddress,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(RegExp(' '))
+                          ],
+                          onChanged: (val) {
+                            if (!validateStructureEmail(val)) {
+                              setState(() {
+                                emailError = true;
+                              });
+                            } else {
+                              setState(() {
+                                emailError = false;
+                              });
+                            }
+                          },
+                          hint: "Email",
+                          controller: emailController),
+                    ),
+                  ],
+                ),
+                // const PhoneNumberTextFieldToShow(),
                 // Column(
                 //   crossAxisAlignment: CrossAxisAlignment.start,
                 //   children: [
@@ -341,7 +381,8 @@ class _NumberRegistrationScreenState extends State<NumberRegistrationScreen> {
       floatingActionButton: Buttons.fullWidthButton(
           text: 'Continue',
           func: () {
-            if (phoneNumberTextFieldController.text.isNotEmpty) {
+            if (phoneNumberTextFieldController.text.isNotEmpty &&
+                emailController.text.isNotEmpty) {
               if (phoneNumberErrorShownWithTextField == false) {
                 // print(error);
                 setState(() {
@@ -360,6 +401,28 @@ class _NumberRegistrationScreenState extends State<NumberRegistrationScreen> {
               } else {
                 setState(() {
                   phoneNumberErrorShownWithTextField = true;
+                });
+
+                FocusScope.of(context).unfocus();
+              }
+              if (emailError == false) {
+                // print(error);
+                setState(() {
+                  emailError = false;
+                });
+                // _formkey.currentState!.save();
+                // print(phone);
+                // BlocProvider.of<UserBloc>(context).add(Signin(
+                //     phoneNum: phoneNumberTextFieldController.text));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => OTPVerificationScreen(
+                          mobileNum: phoneNumberTextFieldController.text)),
+                );
+              } else {
+                setState(() {
+                  emailError = true;
                 });
 
                 FocusScope.of(context).unfocus();
